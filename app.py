@@ -11,9 +11,10 @@ def main():
 @app.route("/authenticate", methods = ['POST'])
 def auth():
     #print request.headers
-    print request.form
-    print request.form['firstname']
-    return "ok"
+    f = request.form['firstname']
+    l = request.form['lastname']
+    if f == 'Barack' && l == 'Obama':
+    return 'ok'#render_template('authenticate.html')
 
 if __name__ == "__main__":
     app.debug = True
