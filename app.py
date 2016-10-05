@@ -11,10 +11,12 @@ def main():
 @app.route("/authenticate", methods = ['POST'])
 def auth():
     #print request.headers
-    f = request.form['firstname']
-    l = request.form['lastname']
-    if f == 'Barack' && l == 'Obama':
-    return 'ok'#render_template('authenticate.html')
+    u = request.form['username']
+    p = request.form['password']
+    authMessage = "Login unsuccessful."
+    if u == 'username' and p == 'password':
+    	authMessage = "Login successful."
+    return render_template('authenticate.html', message = authMessage)
 
 if __name__ == "__main__":
     app.debug = True
