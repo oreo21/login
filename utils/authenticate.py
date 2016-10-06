@@ -20,7 +20,7 @@ def genList(string):
 		L2 += [a]
 	return L2
 
-def onus(username, password, action):
+def task(username, password, action):
 	userList = genList(scanCSV('data/users.csv'))
 	if (action == 'Login'):
 		for account in userList:
