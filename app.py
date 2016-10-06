@@ -15,7 +15,7 @@ def auth():
     u = request.form['username']
     p = request.form['password']
     a = request.form['action']
-  	return auth.auth(u, p ,a)
+    return auth.auth(u, p ,a)
 
 if __name__ == "__main__":
     app.debug = True
