@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from utils import auth
 
 app = Flask(__name__)
 
@@ -13,10 +14,8 @@ def auth():
     #print request.headers
     u = request.form['username']
     p = request.form['password']
-    authMessage = "Login unsuccessful."
-    if u == 'username' and p == 'password':
-    	authMessage = "Login successful."
-    return render_template('authenticate.html', message = authMessage)
+    a = request.form['action']
+  	return auth.auth(u, p ,a)
 
 if __name__ == "__main__":
     app.debug = True

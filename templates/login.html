@@ -2,18 +2,16 @@
 <html>
 <body>
 
-<h1>Login Page</h1>
-
-<h2>Login:<h2>
+<h1><center>FauxBook</center></h1>
+<body>
+	<center> {{ messageLogin }} <br><br>
 <form action="/authenticate" method="POST">
-  First name:<br>
-  <input type="text" name="username">
+  Username: <input type="text" name="username">
   <br>
-  Last name:<br>
-  <input type="password" name="password">
+  Password: <input type="password" name="password">
   <br><br>
-  <input type="submit" value="Login">
-  <input type="submit" value="Register">
+  <input type="submit" name="action" value="Login">
+  <input type="submit" name="action" value="Register">
 </form> 
 
 <p>If you click the "Submit" button, something may happen.</p>
