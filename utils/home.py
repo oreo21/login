@@ -28,7 +28,7 @@ def task(username, password, action):
 				mYay = "Successfully logged in!"
 				mInfo = "Username: " + username + "Password: " + password + "you just logged in"
 				session['user'] = username
-				return render_template("authenticate.html", mesageAuthY = mYay, messageAuthI = mInfo)
+				return render_template("home.html", mesageAuthY = mYay, messageAuthI = mInfo)
 			if (username == account[0] and not hashlib.md5(password).hexdigest() == account[1]):
 				m = "Incorrect password."
 				return render_template("login.html", messageLogin = m)

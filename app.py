@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, session
-from utils import authenticate
+from utils import home
 
 app = Flask(__name__)
 app.secret_key = "nine"
