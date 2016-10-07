@@ -1,23 +1,35 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect, session
 from utils import authenticate
 
 app = Flask(__name__)
-app.secret_key = "\xa0\x0e\xbe_\xa9\xdf\x9a\xb0\xb4\xc8|#\xdc\xcdCg`\x8b\xb7\x150\x1d\xdbNM\xce\xb8\xe2\x16\xe6\x95\x92"
+app.secret_key = "nine"
 
 @app.route("/")
+def root():
+	if 'user' in session:
+		username = session['user']
+		return redirect(url_for('auth'))
+	else: 
+		return redirect(url_for('login'))
+
+
 @app.route("/login")
 def login():
-    #print request.headers
-    #print url_for("login")
     return render_template('login.html')
 
 @app.route("/authenticate", methods = ['POST'])
 def auth():
-    #print request.headers
-    u = request.form['username']
-    p = request.form['password']
-    a = request.form['action']
-    return authenticate.task(u, p ,a)
+	##if 'user' in session:
+		##return render_template('authenticate.html', messageAuthY = "Successfully logged in!", messageAuthI = "you have been in")
+	else:
+		return authenticate.task(request.form['username'], request.form['password'], request.form['action'])
+
+
+@app.route("/logout", methods = ['POST'])
+def logout():
+	session.pop('user')
+	redirect(url_for('login'))
+
 
 if __name__ == "__main__":
     app.debug = True

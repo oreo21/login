@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, redirect, url_for, session, request
 import hashlib
 
 def scanCSV(file):
@@ -25,8 +25,10 @@ def task(username, password, action):
 	if (action == 'Login'):
 		for account in userList:
 			if (username == account[0] and hashlib.md5(password).hexdigest() == account[1]):
-				m = "Successfully logged in!"
-				return render_template("authenticate.html", messageAuth = m)
+				mYay = "Successfully logged in!"
+				mInfo = "Username: " + username + "Password: " + password + "you just logged in"
+				session['user'] = username
+				return render_template("authenticate.html", mesageAuthY = mYay, messageAuthI = mInfo)
 			if (username == account[0] and not hashlib.md5(password).hexdigest() == account[1]):
 				m = "Incorrect password."
 				return render_template("login.html", messageLogin = m)
