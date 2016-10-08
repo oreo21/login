@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, session, request
+from flask import render_template, render_template, url_for, request, redirect, session
 import hashlib
 
 def scanCSV(file):
@@ -18,17 +18,23 @@ def genList(string):
 	for a in L1:
 		a = a.split(",")
 		L2 += [a]
-	return L2
+	return L2 
+
+def userExists(username):
+	userList = genList(scanCSV('data/users.csv'))
+	ans = False
+	for account in userList:
+		if username == account[0]:
+			ans = True
+	return ans
 
 def task(username, password, action):
 	userList = genList(scanCSV('data/users.csv'))
-	if (action == 'Login'):
+	if action == 'Login':
 		for account in userList:
 			if (username == account[0] and hashlib.md5(password).hexdigest() == account[1]):
-				mYay = "Successfully logged in!"
-				mInfo = "Username: " + username + "Password: " + password + "you just logged in"
 				session['user'] = username
-				return render_template("home.html", mesageAuthY = mYay, messageAuthI = mInfo)
+				return redirect(url_for('home'))
 			if (username == account[0] and not hashlib.md5(password).hexdigest() == account[1]):
 				m = "Incorrect password."
 				return render_template("login.html", messageLogin = m)
@@ -37,11 +43,11 @@ def task(username, password, action):
 	else:
 		exists = False
 		for account in userList:
-			if (username == account[0]):
+			if username == account[0]:
 				exists = True
-		if (exists):
-			m = "The username already exists"
-			return render_template("login.html", m)
+		if exists:
+			m = "The username already exists."
+			return render_template("login.html", messageLogin = m)
 		else:
 			newUser = username + "," + hashlib.md5(password).hexdigest() + "\n"
 			appendCSV('data/users.csv', newUser)
