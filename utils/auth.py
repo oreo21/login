@@ -18,7 +18,7 @@ def genList(string):
 	for a in L1:
 		a = a.split(",")
 		L2 += [a]
-	return L2 
+	return L2
 
 def userExists(username):
 	userList = genList(scanCSV('data/users.csv'))
